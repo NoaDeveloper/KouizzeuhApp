@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00A3CC"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/createLobby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="132dp"
+        android:backgroundTint="@color/bleu"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="Créer un lobby"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeJoin" />
+
+    <Button
+        android:id="@+id/connectLobby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="113dp"
+        android:backgroundTint="@color/bleu"
+        android:fontFamily="@font/baloo_paaji"
+        android:shadowColor="@color/bleu"
+        android:text="Connexion à un lobby"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="@color/bleu"
+        android:textColorLink="@color/bleu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createLobby"
+        app:rippleColor="@color/bleu"
+        app:strokeColor="@color/bleu" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="354dp"
+        android:layout_height="161dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/pseudo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_long" />
+
+    <EditText
+        android:id="@+id/pseudo"
+        android:layout_width="251dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="80dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/baloo_paaji"
+        android:hint="Pseudo"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorHint="#3E3E3E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/codeJoin"
+        android:layout_width="255dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="80dp"
+        android:background="@color/bleu"
+        android:ems="10"
+        android:fontFamily="@font/baloo_paaji"
+        android:hint="Code"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#4CDBFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pseudo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

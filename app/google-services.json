@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "237758632752",
+    "project_id": "kouizzeuh",
+    "storage_bucket": "kouizzeuh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237758632752:android:743f25b64e18b65f29eef5",
+        "android_client_info": {
+          "package_name": "fr.nozkay.firstapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj4wCd0Mo1E93kKxVC5SYPNh2nwE9Vl8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:backgroundTint="@color/background"
+    tools:context=".LobbyActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="200dp"
+        android:layout_height="79dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="648dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/logo_long" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="49dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="180dp"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="Code:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="140dp"
+        android:text="000000"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/Thèmes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="148dp"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="Thèmes:"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code" />
+
+    <Button
+        android:id="@+id/math"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="13dp"
+        android:backgroundTint="@color/bleu"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="➕ Math"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/geo"
+        app:layout_constraintTop_toBottomOf="@+id/code" />
+
+    <Button
+        android:id="@+id/geo"
+        android:layout_width="110dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/background"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="🌎 Geo"
+        android:textColor="#FFFAFA"
+        app:layout_constraintEnd_toStartOf="@+id/anglais"
+        app:layout_constraintTop_toBottomOf="@+id/code" />
+
+    <Button
+        android:id="@+id/anglais"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="23dp"
+        android:backgroundTint="@color/background"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="🇬🇧 Anglais"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code" />
+
+    <TextView
+        android:id="@+id/nbjoueur"
+        android:layout_width="286dp"
+        android:layout_height="127dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="60dp"
+        android:background="@color/bleu"
+        android:backgroundTint="@color/bleu"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="Joueurs: 0/20"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code" />
+
+    <Button
+        android:id="@+id/startgame"
+        android:layout_width="144dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="136dp"
+        android:backgroundTint="@color/bleu"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="Lancer la partie"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/math" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
