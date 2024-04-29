@@ -41,13 +41,8 @@ class GameActivity : AppCompatActivity() {
         val handler = Handler()
         val codeJoin = intent.getStringExtra("code")
         val pseudo = intent.getStringExtra("pseudo")
-        var temp = 60
         val gameRef = Firebase.firestore.collection("Game").document(codeJoin.toString())
         gameRef.update("playerLobby.${pseudo.toString()}",false)
-        gameRef.get().addOnSuccessListener { document ->  if(document != null && document.exists()) {
-            val temp2 = document.getString("temp").toString()
-            temp = parseInt(temp2)
-        }}
         mediaPlayer = MediaPlayer.create(this,R.raw.quizmusic)
         mediaPlayer.stop()
         if(mdj.toString().equalsIgnoreCaseWithAccent("Math")){
@@ -84,7 +79,7 @@ class GameActivity : AppCompatActivity() {
         }
         if(mdj == "Anglais"){
             var anglais = getWord()
-            var anglaislist = listOf("")
+            var anglaislist = mutableListOf<String>()
             question.text = anglais.first
             val checkAnswerRunnable = Runnable {
                 val userAnswer = resultat.text.toString()
@@ -92,6 +87,7 @@ class GameActivity : AppCompatActivity() {
                     do{
                         anglais = getWord()
                     }while(anglaislist.contains(anglais.first))
+                    anglaislist.add(anglais.first)
                     question.text = anglais.first
                     resultat.setText("")
                     point += 1
@@ -109,6 +105,7 @@ class GameActivity : AppCompatActivity() {
                 do{
                     anglais = getWord()
                 }while(anglaislist.contains(anglais.first))
+                anglaislist.add(anglais.first)
                 question.text = anglais.first
                 resultat.setText("")
                 point -= 1
@@ -117,7 +114,7 @@ class GameActivity : AppCompatActivity() {
         }
         if(mdj == "Geo"){
             var capitale = getCapital()
-            var capitalelist = listOf("")
+            var capitalelist = mutableListOf<String>()
             question.text = capitale.first
             val checkAnswerRunnable = Runnable {
                 val userAnswer = resultat.text.toString()
@@ -125,6 +122,7 @@ class GameActivity : AppCompatActivity() {
                     do{
                         capitale = getCapital()
                     }while(capitalelist.contains(capitale.first))
+                    capitalelist.add(capitale.first)
                     question.text = capitale.first
                     resultat.setText("")
                     point += 1
@@ -142,27 +140,31 @@ class GameActivity : AppCompatActivity() {
                 do{
                     capitale = getCapital()
                 }while(capitalelist.contains(capitale.first))
+                capitalelist.add(capitale.first)
                 question.text = capitale.first
                 resultat.setText("")
                 point -= 1
                 gameRef.update("playerPoints.${pseudo.toString()}",point)
             }
         }
-        countDownTimer = object : CountDownTimer(temp * 60 * 1000L, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                timer.text = "${millisUntilFinished / 1000}"
-                points.text = "Votre nombre de point:\n${point}"
+        gameRef.get().addOnSuccessListener { document ->  if(document != null && document.exists()) {
+            val temp = parseInt(document.get("temp").toString())
+            countDownTimer = object : CountDownTimer(temp * 60 * 1000L, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    timer.text = "${millisUntilFinished / 1000}"
+                    points.text = "Votre nombre de point:\n${point}"
+                }
+                override fun onFinish() {
+                    val intent = Intent(this@GameActivity, FinActivity::class.java)
+                    intent.putExtra("code", codeJoin)
+                    intent.putExtra("tournoi", intent.getStringExtra("tournoi"))
+                    intent.putExtra("pseudo", pseudo)
+                    startActivity(intent)
+                    finish()
+                }
             }
-            override fun onFinish() {
-                val intent = Intent(this@GameActivity, FinActivity::class.java)
-                intent.putExtra("code", codeJoin)
-                intent.putExtra("tournoi", intent.getStringExtra("tournoi"))
-                intent.putExtra("pseudo", pseudo)
-                startActivity(intent)
-                finish()
-            }
-        }
-        countDownTimer.start()
+            countDownTimer.start()
+        }}
     }
 
     fun generateRandomOperation(): String {

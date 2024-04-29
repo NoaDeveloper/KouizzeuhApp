@@ -142,7 +142,7 @@ class LobbyActivity : AppCompatActivity() {
                     .addOnSuccessListener { documentSnapshot ->
                         if (documentSnapshot.exists()) {
                             if(!(temp.text.isEmpty()) && parseInt(temp.text.toString()) > 0){
-                                gameRef.update("temp",temp.text)
+                                gameRef.update("temp",parseInt(temp.text.toString()))
                             }
                             val start = documentSnapshot.getBoolean("start")
                             val players = documentSnapshot.get("players") as? List<String> ?: emptyList()
