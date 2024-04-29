@@ -11,6 +11,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +19,7 @@ import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.lang.Integer.parseInt
 import java.text.Normalizer
 import java.util.Locale
 import kotlin.random.Random
@@ -39,9 +41,13 @@ class GameActivity : AppCompatActivity() {
         val handler = Handler()
         val codeJoin = intent.getStringExtra("code")
         val pseudo = intent.getStringExtra("pseudo")
-        val temp = intent.getIntExtra("temp",60)
+        var temp = 60
         val gameRef = Firebase.firestore.collection("Game").document(codeJoin.toString())
         gameRef.update("playerLobby.${pseudo.toString()}",false)
+        gameRef.get().addOnSuccessListener { document ->  if(document != null && document.exists()) {
+            val temp2 = document.getString("temp").toString()
+            temp = parseInt(temp2)
+        }}
         mediaPlayer = MediaPlayer.create(this,R.raw.quizmusic)
         mediaPlayer.stop()
         if(mdj.toString().equalsIgnoreCaseWithAccent("Math")){

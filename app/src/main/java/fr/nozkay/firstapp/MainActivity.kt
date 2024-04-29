@@ -21,7 +21,8 @@ data class Game(
     val host: String = "",
     val start: Boolean,
     val mdj: String,
-    val playerLobby: Map<String, Boolean> = mapOf()
+    val playerLobby: Map<String, Boolean> = mapOf(),
+    val temp: Int
     )
 class MainActivity : AppCompatActivity() {
     public lateinit var mediaPlayer: MediaPlayer
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                     start = false,
                     mdj = "Math",
                     playerLobby = mapOf(pseudo.text.toString() to false),
+                    temp = 60
                     )
                 Firebase.firestore.collection("Game")
                     .document(code)

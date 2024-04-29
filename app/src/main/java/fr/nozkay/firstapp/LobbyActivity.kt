@@ -5,7 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputFilter
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -31,7 +33,21 @@ class LobbyActivity : AppCompatActivity() {
         val anglais = findViewById<Button>(R.id.anglais)
         val accueil = findViewById<Button>(R.id.acceuil)
         var mdj = "Math"
+        val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
+            if (source.toString().matches(Regex("[0-9]*"))) {
+                null
+            } else {
+                ""
+            }
+        }
+        temp.filters = arrayOf(inputFilter)
         gameRef.update("playerLobby.${pseudo.toString()}",true)
+        gameRef.get().addOnSuccessListener { document ->  if(document != null && document.exists()) {
+            val host = document.getString("host").toString()
+            if(!(host.equalsIgnoreCaseWithAccent(pseudo.toString()))){
+                temp.visibility = View.GONE
+            }
+        }}
         accueil.setOnClickListener{
             gameRef.get().addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
@@ -125,6 +141,9 @@ class LobbyActivity : AppCompatActivity() {
                 gameRef.get()
                     .addOnSuccessListener { documentSnapshot ->
                         if (documentSnapshot.exists()) {
+                            if(!(temp.text.isEmpty()) && parseInt(temp.text.toString()) > 0){
+                                gameRef.update("temp",temp.text)
+                            }
                             val start = documentSnapshot.getBoolean("start")
                             val players = documentSnapshot.get("players") as? List<String> ?: emptyList()
                             var texte = "Joueurs: ${players.size}/20\n"
