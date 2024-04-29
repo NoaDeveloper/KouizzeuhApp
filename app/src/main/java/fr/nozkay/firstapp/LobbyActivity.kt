@@ -9,8 +9,10 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.lang.Integer.parseInt
 import java.text.Normalizer
 import java.util.Locale
 
@@ -24,9 +26,23 @@ class LobbyActivity : AppCompatActivity() {
         val gameRef = Firebase.firestore.collection("Game").document(code.toString())
         val math = findViewById<Button>(R.id.math)
         val geo = findViewById<Button>(R.id.geo)
+        val temp = findViewById<TextView>(R.id.TimeGame)
         val pseudo = intent.getStringExtra("pseudo")
         val anglais = findViewById<Button>(R.id.anglais)
+        val accueil = findViewById<Button>(R.id.acceuil)
         var mdj = "Math"
+        gameRef.update("playerLobby.${pseudo.toString()}",true)
+        accueil.setOnClickListener{
+            gameRef.get().addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    gameRef.update("players", FieldValue.arrayRemove(pseudo.toString()))
+                    gameRef.update("playerPoints", FieldValue.arrayRemove(pseudo.toString()))
+                    gameRef.update("playerLobby", FieldValue.arrayRemove(pseudo.toString()))
+                    val intent = Intent(this@LobbyActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
         math.setOnClickListener{
             gameRef.get()
                 .addOnSuccessListener { document ->
@@ -82,17 +98,25 @@ class LobbyActivity : AppCompatActivity() {
                 }
         }
         val start = findViewById<Button>(R.id.startgame)
-        start.setOnClickListener{ gameRef.get().addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
+        start.setOnClickListener {
+            gameRef.get().addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val playerLobby = document["playerLobby"] as Map<String, Boolean>
+                    val players = document["players"] as List<String>
+                    val allPlayersInLobby = players.all { playerLobby[it] ?: false }
+
+                    if (allPlayersInLobby) {
                         val host = document.getString("host").toString()
-                        if(host.equalsIgnoreCaseWithAccent(pseudo.toString())){
+                        if (host.equals(pseudo.toString(), ignoreCase = true)) {
                             gameRef.update("start", true)
-                        }
-                        else{
+                        } else {
                             Toast.makeText(this, "Vous n'êtes pas l'host de la partie !", Toast.LENGTH_LONG).show()
                         }
+                    } else {
+                        Toast.makeText(this, "Tous les joueurs ne sont pas prêts dans le lobby !", Toast.LENGTH_LONG).show()
                     }
                 }
+            }
         }
         val handler = Handler()
         val pl = findViewById<TextView>(R.id.nbjoueur)
@@ -113,6 +137,7 @@ class LobbyActivity : AppCompatActivity() {
                                     val intentToGame = Intent(this@LobbyActivity, GameActivity::class.java)
                                     intentToGame.putExtra("mdj", document.getString("mdj").toString())
                                     intentToGame.putExtra("code", code)
+                                    intentToGame.putExtra("temp", parseInt(temp.text.toString()))
                                     intentToGame.putExtra("pseudo", pseudo)
                                     startActivity(intentToGame)
                                 }}

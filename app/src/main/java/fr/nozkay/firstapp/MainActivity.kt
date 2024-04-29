@@ -21,7 +21,8 @@ data class Game(
     val host: String = "",
     val start: Boolean,
     val mdj: String,
-)
+    val playerLobby: Map<String, Boolean> = mapOf()
+    )
 class MainActivity : AppCompatActivity() {
     public lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +49,9 @@ class MainActivity : AppCompatActivity() {
                     playerPoints = mapOf(pseudo.text.toString() to 0),
                     host = pseudo.text.toString(),
                     start = false,
-                    mdj = "Math"
-                )
+                    mdj = "Math",
+                    playerLobby = mapOf(pseudo.text.toString() to false),
+                    )
                 Firebase.firestore.collection("Game")
                     .document(code)
                     .set(game)

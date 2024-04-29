@@ -24,7 +24,6 @@ import kotlin.random.Random
 
 class GameActivity : AppCompatActivity() {
     private lateinit var countDownTimer: CountDownTimer
-    private var timerValue = 60
     private lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +39,9 @@ class GameActivity : AppCompatActivity() {
         val handler = Handler()
         val codeJoin = intent.getStringExtra("code")
         val pseudo = intent.getStringExtra("pseudo")
+        val temp = intent.getIntExtra("temp",60)
         val gameRef = Firebase.firestore.collection("Game").document(codeJoin.toString())
+        gameRef.update("playerLobby.${pseudo.toString()}",false)
         mediaPlayer = MediaPlayer.create(this,R.raw.quizmusic)
         mediaPlayer.stop()
         if(mdj.toString().equalsIgnoreCaseWithAccent("Math")){
@@ -136,12 +137,12 @@ class GameActivity : AppCompatActivity() {
                     capitale = getCapital()
                 }while(capitalelist.contains(capitale.first))
                 question.text = capitale.first
-                resultat.text = " "
+                resultat.setText("")
                 point -= 1
                 gameRef.update("playerPoints.${pseudo.toString()}",point)
             }
         }
-        countDownTimer = object : CountDownTimer(timerValue * 1000L, 1000) {
+        countDownTimer = object : CountDownTimer(temp * 60 * 1000L, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timer.text = "${millisUntilFinished / 1000}"
                 points.text = "Votre nombre de point:\n${point}"
@@ -165,13 +166,19 @@ class GameActivity : AppCompatActivity() {
         var num2: Int
 
         do {
-            num1 = Random.nextInt(2, 50)
-            num2 = Random.nextInt(2, 50)
             operator = when (Random.nextInt(4)) {
                 0 -> "+"
                 1 -> "-"
                 2 -> "x"
                 else -> "÷"
+            }
+            if(operator == "x"){
+                num1 = Random.nextInt(2, 20)
+                num2 = Random.nextInt(2, 20)
+            }
+            else{
+                num1 = Random.nextInt(2, 50)
+                num2 = Random.nextInt(2, 50)
             }
             result = when (operator) {
                 "+" -> num1 + num2
