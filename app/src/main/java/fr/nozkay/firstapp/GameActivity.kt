@@ -24,6 +24,8 @@ import java.text.Normalizer
 import java.util.Locale
 import kotlin.random.Random
 
+//  GameActivity.kt
+
 class GameActivity : AppCompatActivity() {
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var mediaPlayer: MediaPlayer

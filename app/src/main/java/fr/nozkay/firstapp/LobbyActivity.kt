@@ -18,6 +18,8 @@ import java.lang.Integer.parseInt
 import java.text.Normalizer
 import java.util.Locale
 
+//  LobbyActivity.kt
+
 class LobbyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,6 +8,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 
+//  FinActivity.kt
+
 class FinActivity : AppCompatActivity() {
     private lateinit var countDownTimer: CountDownTimer
     private var timerValue = 5

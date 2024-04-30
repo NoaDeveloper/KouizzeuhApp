@@ -14,6 +14,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
 
+//  MainActivity.kt
+
 data class Game(
     val id: String = "",
     val players: List<String> = listOf(),
