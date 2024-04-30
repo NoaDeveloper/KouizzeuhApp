@@ -147,6 +147,76 @@ class GameActivity : AppCompatActivity() {
                 gameRef.update("playerPoints.${pseudo.toString()}",point)
             }
         }
+        if(mdj == "Français"){
+            var mot = getMot()
+            var motList = mutableListOf<String>()
+            question.text = mot.first
+            val checkAnswerRunnable = Runnable {
+                val userAnswer = resultat.text.toString()
+                if (userAnswer.equalsIgnoreCaseWithAccent(mot.second)) {
+                    do{
+                        mot = getMot()
+                    }while(motList.contains(mot.first))
+                    motList.add(mot.first)
+                    question.text = mot.first
+                    resultat.setText("")
+                    point += 1
+                    gameRef.update("playerPoints.${pseudo.toString()}",point)
+                }
+            }
+            resultat.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { handler.removeCallbacks(checkAnswerRunnable) }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    handler.postDelayed(checkAnswerRunnable, DELAY_MS)
+                }
+            })
+            passe.setOnClickListener{
+                do{
+                    mot = getMot()
+                }while(motList.contains(mot.first))
+                motList.add(mot.first)
+                question.text = mot.first
+                resultat.setText("")
+                point -= 1
+                gameRef.update("playerPoints.${pseudo.toString()}",point)
+            }
+        }
+        if(mdj == "Culture"){
+            var mot = general()
+            var motList = mutableListOf<String>()
+            question.text = mot.first
+            val checkAnswerRunnable = Runnable {
+                val userAnswer = resultat.text.toString()
+                if (userAnswer.equalsIgnoreCaseWithAccent(mot.second)) {
+                    do{
+                        mot = general()
+                    }while(motList.contains(mot.first))
+                    motList.add(mot.first)
+                    question.text = mot.first
+                    resultat.setText("")
+                    point += 1
+                    gameRef.update("playerPoints.${pseudo.toString()}",point)
+                }
+            }
+            resultat.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { handler.removeCallbacks(checkAnswerRunnable) }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    handler.postDelayed(checkAnswerRunnable, DELAY_MS)
+                }
+            })
+            passe.setOnClickListener{
+                do{
+                    mot = general()
+                }while(motList.contains(mot.first))
+                motList.add(mot.first)
+                question.text = mot.first
+                resultat.setText("")
+                point -= 1
+                gameRef.update("playerPoints.${pseudo.toString()}",point)
+            }
+        }
         gameRef.get().addOnSuccessListener { document ->  if(document != null && document.exists()) {
             val temp = parseInt(document.get("temp").toString())
             countDownTimer = object : CountDownTimer(temp * 60 * 1000L, 1000) {
@@ -220,6 +290,64 @@ class GameActivity : AppCompatActivity() {
         val (capital, country) = europeanCapitals[randomIndex]
         return Pair("Quel est le pays qui à pour capitale:\n$capital", country)
     }
+
+    fun getMot(): Pair<String,String>{
+        val mots = listOf(
+            "apprendre" to "aprendre", "beauté" to "bauté", "drapeau" to "drâpeau", "essentiel" to "essantiel",
+            "fête" to "fète", "gênant" to "génant", "hôpital" to "hospital", "inviter" to "invité", "jaune" to "jone",
+            "lait" to "laît", "montagne" to "montagne", "noël" to "noel", "œuf" to "euf", "poussière" to "poussière",
+            "quatre" to "quatre", "rencontrer" to "rencontrer", "soleil" to "soleil", "théâtre" to "théatre", "uniforme" to "uniforme",
+            "vélo" to "vélo", "wagon" to "waggon", "xylophone" to "xylophone", "yacht" to "yacht", "zéro" to "zéro",
+            "aider" to "aidére", "boîte" to "boite", "chanson" to "chançon", "doux" to "dou", "école" to "ecole",
+            "famille" to "famile", "garçon" to "garsone", "heureux" to "heurteux", "île" to "ile", "jour" to "jour",
+            "koala" to "coala", "lune" to "lune", "mille" to "mile", "nouveau" to "nouvo", "oignon" to "oignon",
+            "piano" to "pianno", "question" to "quession", "renard" to "ranard", "sourire" to "sourire", "tortue" to "tortue",
+            "uniforme" to "ûniforme", "vache" to "vâche", "wagon" to "waggon", "xénophobe" to "xenophobe", "yoga" to "yoga",
+            "zèbre" to "zèbre", "ananas" to "ananas", "biscuit" to "biscuit", "cactus" to "cactus", "dragon" to "dragon",
+            "écharpe" to "echarpe", "flamme" to "flamme", "girafe" to "giraphe", "hibou" to "hîbou", "igloo" to "iglou",
+            "jardin" to "Gardin", "koala" to "quoala", "lampe" to "lampe", "manège" to "manège", "nénuphar" to "nénufar",
+            "oignon" to "oinon", "parapluie" to "parapluie", "quiche" to "quiche", "raisin" to "raisin", "sirène" to "sirene",
+            "tortue" to "tortu", "uniforme" to "uniforme", "verre" to "verre", "wagon" to "waggon", "xylophone" to "xylophone",
+            "yaourt" to "yaourtte", "zeppelin" to "zeplin", "abeille" to "abeile", "bougie" to "boûgie", "chapeau" to "châpeau",
+            "diamant" to "diament", "éléphant" to "éléfant", "fraise" to "fraize"
+        )
+        val randomIndex = Random.nextInt(mots.size)
+        val (good, mauvais) = mots[randomIndex]
+        return Pair("Corrige le mot:\n$mauvais", good)
+    }
+    fun general(): Pair<String,String>{
+        val mots = listOf(
+            "Quel célèbre empereur romain a été assassiné en 44 av. J.-C. ?" to "César",
+            "Quel événement a marqué la fin de la Seconde Guerre mondiale en Europe en 1945 ?" to "Capitulation Allemande",
+            "Quel explorateur a découvert l'Amérique en 1492 ?" to "Christophe Colomb",
+            "Quel empire a été fondé par Napoléon Bonaparte au début du XIXe siècle ?" to "Empire français",
+            "Quelle guerre a opposé les États-Unis et l'Union soviétique de manière indirecte entre 1947 et 1991 ?" to "Guerre froide",
+            "Quel est le plus long fleuve de France selon la partie coulant sur le territoire ?" to "La Loire",
+            "Quel est le plus grand lac d'eau douce en Afrique ?" to "Le lac Victoria",
+            "Quelle est la plus grande chaîne de montagnes du monde ?" to "L'Himalaya",
+            "Quel est le désert le plus grand du monde ?" to "Le Sahara",
+            "Quel est le plus grand archipel du monde ?" to "L'Indonésie",
+            "Qui a réalisé le film 'Forrest Gump' ?" to "Robert Zemeckis",
+            "Dans quel film l'acteur Tom Hanks joue-t-il un rôle de naufragé ?" to "Seul au monde",
+            "Quel film d'animation met en scène des jouets qui prennent vie lorsque les humains ne les regardent pas ?" to "Toy Story",
+            "Quelle actrice a remporté un Oscar pour son rôle dans 'La La Land' ?" to "Emma Stone",
+            "Quel film d'Alfred Hitchcock met en scène un meurtrier utilisant un couteau de cuisine comme arme ?" to "Psychose",
+            "Quel est le nom du créateur de Facebook ?" to "Mark Zuckerberg",
+            "Dans quel pays est né le site de partage de vidéos YouTube ?" to "États-Unis",
+            "Quel réseau social est principalement utilisé pour le partage de messages courts appelés 'tweets' ?" to "Twitter",
+            "Quel est le nom du co-fondateur de Twitter ?" to "Jack Dorsey",
+            "Quel est le réseau social qui permet aux utilisateurs de partager des photos et des vidéos de courtes durées ?" to "Instagram",
+            "Quel est le nom de la couche protectrice de gaz entourant la Terre ?" to "L'atmosphère",
+            "Quel est le phénomène météorologique caractérisé par des vents violents tournant en spirale ?" to "cyclone",
+            "Quel est le nom du processus par lequel l'eau s'évapore des plantes et des sols vers l'atmosphère ?" to "transpiration végétale",
+            "Quelle est la couche la plus externe de la Terre, composée de plaques mobiles ?" to "lithosphère",
+            "Quel est le nom du phénomène naturel de réchauffement de la Terre dû à l'augmentation des gaz à effet de serre ?" to "réchauffement climatique",
+        )
+        val randomIndex = Random.nextInt(mots.size)
+        val (question, reponse) = mots[randomIndex]
+        return Pair(question, reponse)
+    }
+
 
     fun getWord(): Pair<String,String> {
         val englishWords = listOf(

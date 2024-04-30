@@ -104,6 +104,20 @@
         app:layout_constraintTop_toBottomOf="@+id/code" />
 
     <Button
+        android:id="@+id/blindtest"
+        android:layout_width="112dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/background"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="Blind Test"
+        android:textColor="#FFFAFA"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/cultureg"
+        app:layout_constraintTop_toBottomOf="@+id/anglais" />
+
+    <Button
         android:id="@+id/français"
         android:layout_width="99dp"
         android:layout_height="55dp"

@@ -104,6 +104,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
+    }
+
     fun generateRandomCode(): String {
         val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')
         return (1..6)

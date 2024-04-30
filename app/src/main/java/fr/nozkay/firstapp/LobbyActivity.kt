@@ -31,6 +31,9 @@ class LobbyActivity : AppCompatActivity() {
         val temp = findViewById<TextView>(R.id.TimeGame)
         val pseudo = intent.getStringExtra("pseudo")
         val anglais = findViewById<Button>(R.id.anglais)
+        val fr = findViewById<Button>(R.id.français)
+        val culture = findViewById<Button>(R.id.cultureg)
+        val blindtest = findViewById<Button>(R.id.blindtest)
         val accueil = findViewById<Button>(R.id.acceuil)
         var mdj = "Math"
         val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
@@ -68,8 +71,32 @@ class LobbyActivity : AppCompatActivity() {
                             math.setBackgroundColor(resources.getColor(R.color.bleu))
                             geo.setBackgroundColor(resources.getColor(R.color.background))
                             anglais.setBackgroundColor(resources.getColor(R.color.background))
+                            fr.setBackgroundColor(resources.getColor(R.color.background))
+                            culture.setBackgroundColor(resources.getColor(R.color.background))
+                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Math"
                             gameRef.update("mdj","Math")
+                        }
+                        else{
+                            Toast.makeText(this, "Vous n'êtes pas l'host de la partie !", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+        }
+        blindtest.setOnClickListener{
+            gameRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val host = document.getString("host").toString()
+                        if(host.equalsIgnoreCaseWithAccent(pseudo.toString())){
+                            math.setBackgroundColor(resources.getColor(R.color.background))
+                            geo.setBackgroundColor(resources.getColor(R.color.background))
+                            anglais.setBackgroundColor(resources.getColor(R.color.background))
+                            fr.setBackgroundColor(resources.getColor(R.color.background))
+                            culture.setBackgroundColor(resources.getColor(R.color.background))
+                            blindtest.setBackgroundColor(resources.getColor(R.color.bleu))
+                            mdj = "BlindTest"
+                            gameRef.update("mdj","BlindTest")
                         }
                         else{
                             Toast.makeText(this, "Vous n'êtes pas l'host de la partie !", Toast.LENGTH_LONG).show()
@@ -85,7 +112,10 @@ class LobbyActivity : AppCompatActivity() {
                         if(host.equalsIgnoreCaseWithAccent(pseudo.toString())){
                             math.setBackgroundColor(resources.getColor(R.color.background))
                             geo.setBackgroundColor(resources.getColor(R.color.background))
+                            fr.setBackgroundColor(resources.getColor(R.color.background))
+                            culture.setBackgroundColor(resources.getColor(R.color.background))
                             anglais.setBackgroundColor(resources.getColor(R.color.bleu))
+                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Anglais"
                             gameRef.update("mdj","Anglais")
                         }
@@ -95,6 +125,49 @@ class LobbyActivity : AppCompatActivity() {
                     }
                 }
         }
+        fr.setOnClickListener{
+            gameRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val host = document.getString("host").toString()
+                        if(host.equalsIgnoreCaseWithAccent(pseudo.toString())){
+                            math.setBackgroundColor(resources.getColor(R.color.background))
+                            geo.setBackgroundColor(resources.getColor(R.color.background))
+                            anglais.setBackgroundColor(resources.getColor(R.color.background))
+                            fr.setBackgroundColor(resources.getColor(R.color.bleu))
+                            culture.setBackgroundColor(resources.getColor(R.color.background))
+                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
+                            mdj = "Français"
+                            gameRef.update("mdj","Français")
+                        }
+                        else{
+                            Toast.makeText(this, "Vous n'êtes pas l'host de la partie !", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+        }
+        culture.setOnClickListener{
+            gameRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val host = document.getString("host").toString()
+                        if(host.equalsIgnoreCaseWithAccent(pseudo.toString())){
+                            math.setBackgroundColor(resources.getColor(R.color.background))
+                            geo.setBackgroundColor(resources.getColor(R.color.background))
+                            anglais.setBackgroundColor(resources.getColor(R.color.background))
+                            fr.setBackgroundColor(resources.getColor(R.color.background))
+                            culture.setBackgroundColor(resources.getColor(R.color.bleu))
+                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
+                            mdj = "Culture"
+                            gameRef.update("mdj","Culture")
+                        }
+                        else{
+                            Toast.makeText(this, "Vous n'êtes pas l'host de la partie !", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+        }
+
         geo.setOnClickListener{
             gameRef.get()
                 .addOnSuccessListener { document ->
@@ -104,6 +177,9 @@ class LobbyActivity : AppCompatActivity() {
                             math.setBackgroundColor(resources.getColor(R.color.background))
                             geo.setBackgroundColor(resources.getColor(R.color.bleu))
                             anglais.setBackgroundColor(resources.getColor(R.color.background))
+                            fr.setBackgroundColor(resources.getColor(R.color.background))
+                            culture.setBackgroundColor(resources.getColor(R.color.background))
+                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Geo"
                             gameRef.update("mdj","Geo")
                         }
