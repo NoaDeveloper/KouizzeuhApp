@@ -35,7 +35,6 @@ class LobbyActivity : AppCompatActivity() {
         val anglais = findViewById<Button>(R.id.anglais)
         val fr = findViewById<Button>(R.id.français)
         val culture = findViewById<Button>(R.id.cultureg)
-        val blindtest = findViewById<Button>(R.id.blindtest)
         val accueil = findViewById<Button>(R.id.acceuil)
         var mdj = "Math"
         val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
@@ -75,30 +74,8 @@ class LobbyActivity : AppCompatActivity() {
                             anglais.setBackgroundColor(resources.getColor(R.color.background))
                             fr.setBackgroundColor(resources.getColor(R.color.background))
                             culture.setBackgroundColor(resources.getColor(R.color.background))
-                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Math"
                             gameRef.update("mdj","Math")
-                        }
-                        else{
-                            Toast.makeText(this, "Vous n'êtes pas l'host de la partie !", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-        }
-        blindtest.setOnClickListener{
-            gameRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        val host = document.getString("host").toString()
-                        if(host.equalsIgnoreCaseWithAccent(pseudo.toString())){
-                            math.setBackgroundColor(resources.getColor(R.color.background))
-                            geo.setBackgroundColor(resources.getColor(R.color.background))
-                            anglais.setBackgroundColor(resources.getColor(R.color.background))
-                            fr.setBackgroundColor(resources.getColor(R.color.background))
-                            culture.setBackgroundColor(resources.getColor(R.color.background))
-                            blindtest.setBackgroundColor(resources.getColor(R.color.bleu))
-                            mdj = "BlindTest"
-                            gameRef.update("mdj","BlindTest")
                         }
                         else{
                             Toast.makeText(this, "Vous n'êtes pas l'host de la partie !", Toast.LENGTH_LONG).show()
@@ -117,7 +94,6 @@ class LobbyActivity : AppCompatActivity() {
                             fr.setBackgroundColor(resources.getColor(R.color.background))
                             culture.setBackgroundColor(resources.getColor(R.color.background))
                             anglais.setBackgroundColor(resources.getColor(R.color.bleu))
-                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Anglais"
                             gameRef.update("mdj","Anglais")
                         }
@@ -138,7 +114,6 @@ class LobbyActivity : AppCompatActivity() {
                             anglais.setBackgroundColor(resources.getColor(R.color.background))
                             fr.setBackgroundColor(resources.getColor(R.color.bleu))
                             culture.setBackgroundColor(resources.getColor(R.color.background))
-                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Français"
                             gameRef.update("mdj","Français")
                         }
@@ -159,7 +134,6 @@ class LobbyActivity : AppCompatActivity() {
                             anglais.setBackgroundColor(resources.getColor(R.color.background))
                             fr.setBackgroundColor(resources.getColor(R.color.background))
                             culture.setBackgroundColor(resources.getColor(R.color.bleu))
-                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Culture"
                             gameRef.update("mdj","Culture")
                         }
@@ -181,7 +155,6 @@ class LobbyActivity : AppCompatActivity() {
                             anglais.setBackgroundColor(resources.getColor(R.color.background))
                             fr.setBackgroundColor(resources.getColor(R.color.background))
                             culture.setBackgroundColor(resources.getColor(R.color.background))
-                            blindtest.setBackgroundColor(resources.getColor(R.color.background))
                             mdj = "Geo"
                             gameRef.update("mdj","Geo")
                         }
@@ -234,7 +207,6 @@ class LobbyActivity : AppCompatActivity() {
                                     val intentToGame = Intent(this@LobbyActivity, GameActivity::class.java)
                                     intentToGame.putExtra("mdj", document.getString("mdj").toString())
                                     intentToGame.putExtra("code", code)
-                                    intentToGame.putExtra("temp", parseInt(temp.text.toString()))
                                     intentToGame.putExtra("pseudo", pseudo)
                                     startActivity(intentToGame)
                                 }}

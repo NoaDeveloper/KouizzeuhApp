@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun generateRandomCode(): String {
-        val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        val charPool = ('A'..'Z') + ('0'..'9')
         return (1..6)
             .map { Random.nextInt(0, charPool.size) }
             .map(charPool::get)

@@ -13,9 +13,13 @@
         android:layout_width="200dp"
         android:layout_height="79dp"
         android:layout_marginStart="188dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="23dp"
         android:layout_marginBottom="644dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_long" />
 
     <TextView
@@ -24,10 +28,13 @@
         android:layout_height="32dp"
         android:layout_marginStart="182dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="180dp"
         android:fontFamily="@font/baloo_paaji"
         android:text="Code:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/code"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -43,10 +50,14 @@
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginStart="141dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="5dp"
         android:text="000000"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/nbjoueur"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -55,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="144dp"
         android:fontFamily="@font/baloo_paaji"
         android:text="Thèmes:"
         android:textColor="#FFFFFF"
@@ -67,68 +78,64 @@
         android:id="@+id/math"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="204dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/bleu"
         android:fontFamily="@font/baloo_paaji"
         android:text="➕ Math"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/geo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/code" />
 
     <Button
         android:id="@+id/geo"
         android:layout_width="110dp"
         android:layout_height="48dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="208dp"
+        android:layout_marginEnd="4dp"
         android:backgroundTint="@color/background"
         android:fontFamily="@font/baloo_paaji"
         android:text="🌎 Geo"
         android:textColor="#FFFAFA"
         app:layout_constraintEnd_toStartOf="@+id/anglais"
+        app:layout_constraintStart_toEndOf="@+id/math"
         app:layout_constraintTop_toBottomOf="@+id/code" />
 
     <Button
         android:id="@+id/cultureg"
         android:layout_width="112dp"
         android:layout_height="51dp"
+        android:layout_marginStart="116dp"
         android:layout_marginTop="256dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="36dp"
         android:backgroundTint="@color/background"
         android:fontFamily="@font/baloo_paaji"
         android:text="Culture"
         android:textColor="#FFFAFA"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/anglais"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/français"
         app:layout_constraintTop_toBottomOf="@+id/code" />
-
-    <Button
-        android:id="@+id/blindtest"
-        android:layout_width="112dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="@color/background"
-        android:fontFamily="@font/baloo_paaji"
-        android:text="Blind Test"
-        android:textColor="#FFFAFA"
-        android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/cultureg"
-        app:layout_constraintTop_toBottomOf="@+id/anglais" />
 
     <Button
         android:id="@+id/français"
         android:layout_width="99dp"
         android:layout_height="55dp"
-        android:layout_marginTop="252dp"
-        android:layout_marginEnd="132dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/background"
         android:fontFamily="@font/baloo_paaji"
         android:text="🇫🇷 Français"
         android:textColor="#FFFAFA"
         android:textSize="11sp"
-        app:layout_constraintEnd_toStartOf="@+id/anglais"
+        app:layout_constraintEnd_toStartOf="@+id/math"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/code" />
 
     <Button
@@ -136,20 +143,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="204dp"
-        android:layout_marginEnd="23dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/background"
         android:fontFamily="@font/baloo_paaji"
         android:text="🇬🇧 Anglais"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/geo"
         app:layout_constraintTop_toBottomOf="@+id/code" />
 
     <TextView
         android:id="@+id/nbjoueur"
         android:layout_width="286dp"
         android:layout_height="127dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="60dp"
+        android:layout_marginBottom="9dp"
         android:background="@color/bleu"
         android:backgroundTint="@color/bleu"
         android:fontFamily="@font/baloo_paaji"
@@ -157,41 +167,52 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/Thèmes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/code" />
 
     <Button
         android:id="@+id/startgame"
         android:layout_width="144dp"
         android:layout_height="63dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="184dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="47dp"
         android:backgroundTint="@color/bleu"
         android:fontFamily="@font/baloo_paaji"
         android:text="Lancer la partie"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/math" />
 
     <Button
         android:id="@+id/acceuil"
         android:layout_width="107dp"
         android:layout_height="53dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
         android:backgroundTint="@color/bleu"
         android:fontFamily="@font/baloo_paaji"
         android:text="Acceuil"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/TimeGame"
         android:layout_width="193dp"
         android:layout_height="56dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/bleu"
         android:ems="10"
         android:fontFamily="@font/baloo_paaji"
@@ -201,6 +222,8 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/startgame"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/français" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
