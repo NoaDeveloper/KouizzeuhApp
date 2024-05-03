@@ -1,4 +1,4 @@
-package fr.nozkay.firstapp
+package fr.nozkay.firstapp.classicmode
 
 import android.content.Intent
 import android.graphics.Color
@@ -6,17 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
-import android.text.Layout
-import android.view.View
 import android.view.animation.AlphaAnimation
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.common.reflect.TypeToken
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
+import fr.nozkay.firstapp.LobbyActivity
+import fr.nozkay.firstapp.R
 
 //  Classement.kt
 
@@ -63,5 +61,8 @@ class Classement : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onBackPressed() {
     }
 }

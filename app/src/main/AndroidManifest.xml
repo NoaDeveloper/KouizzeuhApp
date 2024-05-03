@@ -16,13 +16,13 @@
             android:name=".BlindTestActivity"
             android:exported="false" />
         <activity
-            android:name=".Classement"
+            android:name=".classicmode.Classement"
             android:exported="false" />
         <activity
-            android:name=".FinActivity"
+            android:name=".classicmode.FinActivity"
             android:exported="false" />
         <activity
-            android:name=".GameActivity"
+            android:name=".classicmode.GameActivity"
             android:exported="false" />
         <activity
             android:name=".LobbyActivity"

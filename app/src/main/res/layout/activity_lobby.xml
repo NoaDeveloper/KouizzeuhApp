@@ -63,103 +63,48 @@
 
     <TextView
         android:id="@+id/Thèmes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="144dp"
+        android:layout_width="118dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="108dp"
         android:fontFamily="@font/baloo_paaji"
         android:text="Thèmes:"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/TimeGame"
+        app:layout_constraintEnd_toStartOf="@+id/themes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/code" />
+        app:layout_constraintTop_toBottomOf="@+id/nbjoueur" />
 
-    <Button
-        android:id="@+id/math"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/bleu"
-        android:fontFamily="@font/baloo_paaji"
-        android:text="➕ Math"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/geo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/code" />
-
-    <Button
-        android:id="@+id/geo"
-        android:layout_width="110dp"
+    <TextView
+        android:id="@+id/Mdj"
+        android:layout_width="86dp"
         android:layout_height="48dp"
-        android:layout_marginStart="-10dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="4dp"
-        android:backgroundTint="@color/background"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="42dp"
         android:fontFamily="@font/baloo_paaji"
-        android:text="🌎 Geo"
-        android:textColor="#FFFAFA"
-        app:layout_constraintEnd_toStartOf="@+id/anglais"
-        app:layout_constraintStart_toEndOf="@+id/math"
-        app:layout_constraintTop_toBottomOf="@+id/code" />
-
-    <Button
-        android:id="@+id/cultureg"
-        android:layout_width="112dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="256dp"
-        android:layout_marginEnd="36dp"
-        android:backgroundTint="@color/background"
-        android:fontFamily="@font/baloo_paaji"
-        android:text="Culture"
-        android:textColor="#FFFAFA"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/français"
-        app:layout_constraintTop_toBottomOf="@+id/code" />
-
-    <Button
-        android:id="@+id/français"
-        android:layout_width="99dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="256dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/background"
-        android:fontFamily="@font/baloo_paaji"
-        android:text="🇫🇷 Français"
-        android:textColor="#FFFAFA"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toStartOf="@+id/math"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/code" />
-
-    <Button
-        android:id="@+id/anglais"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/background"
-        android:fontFamily="@font/baloo_paaji"
-        android:text="🇬🇧 Anglais"
+        android:text="Mode:"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/geo"
-        app:layout_constraintTop_toBottomOf="@+id/code" />
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/TimeGame"
+        app:layout_constraintEnd_toStartOf="@+id/mode"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Thèmes"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/nbjoueur"
-        android:layout_width="286dp"
-        android:layout_height="127dp"
+        android:layout_width="305dp"
+        android:layout_height="168dp"
         android:layout_marginStart="65dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="3dp"
         android:background="@color/bleu"
         android:backgroundTint="@color/bleu"
         android:fontFamily="@font/baloo_paaji"
@@ -169,6 +114,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/Thèmes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.631"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/code" />
 
@@ -177,17 +123,16 @@
         android:layout_width="144dp"
         android:layout_height="63dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="184dp"
         android:layout_marginEnd="127dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/bleu"
         android:fontFamily="@font/baloo_paaji"
         android:text="Lancer la partie"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/math" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/acceuil"
@@ -196,10 +141,12 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="36dp"
+        android:layout_marginBottom="62dp"
         android:backgroundTint="@color/bleu"
         android:fontFamily="@font/baloo_paaji"
         android:text="Acceuil"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/code"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -209,10 +156,9 @@
         android:id="@+id/TimeGame"
         android:layout_width="193dp"
         android:layout_height="56dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginEnd="103dp"
+        android:layout_marginBottom="38dp"
         android:background="@color/bleu"
         android:ems="10"
         android:fontFamily="@font/baloo_paaji"
@@ -223,7 +169,56 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/startgame"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/français" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/themes"
+        android:layout_width="216dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="13dp"
+        android:background="@color/bleu"
+        android:entries="@array/themes"
+        android:foregroundTint="#00FFFFFF"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Thèmes"
+        app:layout_constraintTop_toBottomOf="@+id/nbjoueur" />
+
+    <Spinner
+        android:id="@+id/mode"
+        android:layout_width="216dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="44dp"
+        android:background="@color/bleu"
+        android:entries="@array/mode"
+        android:foregroundTint="#00FFFFFF"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/TimeGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Mdj"
+        app:layout_constraintTop_toBottomOf="@+id/themes"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

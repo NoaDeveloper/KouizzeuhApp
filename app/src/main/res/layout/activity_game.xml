@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:backgroundTint="@color/background"
-    tools:context=".GameActivity">
+    tools:context=".classicmode.GameActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -58,6 +58,7 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/réponse"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
@@ -123,5 +124,19 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView5"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/themeText"
+        android:layout_width="240dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="142dp"
+        android:fontFamily="@font/baloo_paaji"
+        android:text="Thème:"
+        android:textColor="#FBFBFB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

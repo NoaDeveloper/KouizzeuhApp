@@ -1,9 +1,6 @@
-package fr.nozkay.firstapp
+package fr.nozkay.firstapp.classicmode
 
-import android.content.ContentProvider
-import android.content.Context
 import android.content.Intent
-import android.media.AsyncPlayer
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,14 +8,11 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import fr.nozkay.firstapp.R
 import java.lang.Integer.parseInt
 import java.text.Normalizer
 import java.util.Locale
@@ -38,6 +32,7 @@ class GameActivity : AppCompatActivity() {
         val timer = findViewById<TextView>(R.id.Time)
         val passe = findViewById<Button>(R.id.Passe)
         val points = findViewById<TextView>(R.id.points)
+        val theme = findViewById<TextView>(R.id.themeText)
         var point = 0
         val DELAY_MS: Long = 100
         val handler = Handler()
@@ -45,9 +40,10 @@ class GameActivity : AppCompatActivity() {
         val pseudo = intent.getStringExtra("pseudo")
         val gameRef = Firebase.firestore.collection("Game").document(codeJoin.toString())
         gameRef.update("playerLobby.${pseudo.toString()}",false)
-        mediaPlayer = MediaPlayer.create(this,R.raw.quizmusic)
+        mediaPlayer = MediaPlayer.create(this, R.raw.quizmusic)
         mediaPlayer.stop()
-        if(mdj.toString().equalsIgnoreCaseWithAccent("Math")){
+        theme.text = "Theme Actuel: " + mdj
+        if(mdj.toString().equalsIgnoreCaseWithAccent("➕ Math")){
             var operationString = generateRandomOperation()
             var splitOperation = operationString.split(" = ")
             val operation = splitOperation[0]
@@ -79,7 +75,7 @@ class GameActivity : AppCompatActivity() {
                 gameRef.update("playerPoints.${pseudo.toString()}",point)
             }
         }
-        if(mdj == "Anglais"){
+        if(mdj == "\uD83C\uDDEC\uD83C\uDDE7 Anglais"){
             var anglais = getWord()
             var anglaislist = mutableListOf<String>()
             question.text = anglais.first
@@ -114,7 +110,7 @@ class GameActivity : AppCompatActivity() {
                 gameRef.update("playerPoints.${pseudo.toString()}",point)
             }
         }
-        if(mdj == "Geo"){
+        if(mdj == "\uD83C\uDF0D Geographie"){
             var capitale = getCapital()
             var capitalelist = mutableListOf<String>()
             question.text = capitale.first
@@ -149,7 +145,7 @@ class GameActivity : AppCompatActivity() {
                 gameRef.update("playerPoints.${pseudo.toString()}",point)
             }
         }
-        if(mdj == "Français"){
+        if(mdj == "\uD83C\uDDEB\uD83C\uDDF7 Français"){
             var mot = getMot()
             var motList = mutableListOf<String>()
             question.text = mot.first
@@ -184,15 +180,15 @@ class GameActivity : AppCompatActivity() {
                 gameRef.update("playerPoints.${pseudo.toString()}",point)
             }
         }
-        if(mdj == "Culture"){
-            var mot = general()
+        if(mdj == "⚽️ Sports"){
+            var mot = getSport()
             var motList = mutableListOf<String>()
             question.text = mot.first
             val checkAnswerRunnable = Runnable {
                 val userAnswer = resultat.text.toString()
                 if (userAnswer.equalsIgnoreCaseWithAccent(mot.second)) {
                     do{
-                        mot = general()
+                        mot = getSport()
                     }while(motList.contains(mot.first))
                     motList.add(mot.first)
                     question.text = mot.first
@@ -210,7 +206,42 @@ class GameActivity : AppCompatActivity() {
             })
             passe.setOnClickListener{
                 do{
-                    mot = general()
+                    mot = getSport()
+                }while(motList.contains(mot.first))
+                motList.add(mot.first)
+                question.text = mot.first
+                resultat.setText("")
+                point -= 1
+                gameRef.update("playerPoints.${pseudo.toString()}",point)
+            }
+        }
+        if(mdj == "\uD83D\uDE80 Sciences"){
+            var mot = getScience()
+            var motList = mutableListOf<String>()
+            question.text = mot.first
+            val checkAnswerRunnable = Runnable {
+                val userAnswer = resultat.text.toString()
+                if (userAnswer.equalsIgnoreCaseWithAccent(mot.second)) {
+                    do{
+                        mot = getScience()
+                    }while(motList.contains(mot.first))
+                    motList.add(mot.first)
+                    question.text = mot.first
+                    resultat.setText("")
+                    point += 1
+                    gameRef.update("playerPoints.${pseudo.toString()}",point)
+                }
+            }
+            resultat.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { handler.removeCallbacks(checkAnswerRunnable) }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    handler.postDelayed(checkAnswerRunnable, DELAY_MS)
+                }
+            })
+            passe.setOnClickListener{
+                do{
+                    mot = getScience()
                 }while(motList.contains(mot.first))
                 motList.add(mot.first)
                 question.text = mot.first
@@ -275,6 +306,121 @@ class GameActivity : AppCompatActivity() {
         return "$num1 $operator $num2 = $result"
     }
 
+    fun getSport(): Pair<String, String>{
+        val sports = listOf(
+            "Cristiano Ronaldo" to "Football",
+            "Lionel Messi" to "Football",
+            "LeBron James" to "Basketball",
+            "Tom Brady" to "Football américain",
+            "Michael Jordan" to "Basketball",
+            "Roger Federer" to "Tennis",
+            "Usain Bolt" to "Athlétisme",
+            "Serena Williams" to "Tennis",
+            "Rafael Nadal" to "Tennis",
+            "Lewis Hamilton" to "Formule 1",
+            "Mohamed Salah" to "Football",
+            "Zlatan Ibrahimovic" to "Football",
+            "Kevin Durant" to "Basketball",
+            "Novak Djokovic" to "Tennis",
+            "Simone Biles" to "Gymnastique",
+            "Megan Rapinoe" to "Football",
+            "Stephen Curry" to "Basketball",
+            "Luka Modric" to "Football",
+            "Serena Williams" to "Tennis",
+            "Lindsey Vonn" to "Ski",
+            "Michael Phelps" to "Natation",
+            "Caroline Wozniacki" to "Tennis",
+            "Marcel Hirscher" to "Ski",
+            "Marta Vieira da Silva" to "Football",
+            "Neeraj Chopra" to "Lancer du javelot",
+            "Gareth Bale" to "Football",
+            "Yohan Blake" to "Athlétisme",
+            "Usain Bolt" to "Athlétisme",
+            "Tiger Woods" to "Golf",
+            "Katie Ledecky" to "Natation",
+            "Rory McIlroy" to "Golf",
+            "Virat Kohli" to "Cricket",
+            "Naomi Osaka" to "Tennis",
+            "Ronda Rousey" to "MMA",
+            "Anthony Joshua" to "Boxe",
+            "Sachin Tendulkar" to "Cricket",
+            "Manny Pacquiao" to "Boxe",
+            "Zinedine Zidane" to "Football",
+            "Tony Parker" to "Basketball",
+            "Didier Deschamps" to "Football",
+            "Thierry Henry" to "Football",
+            "Sébastien Loeb" to "Rallye",
+            "Yannick Noah" to "Tennis",
+            "Michel Platini" to "Football",
+            "Alain Prost" to "Formule 1",
+            "Karim Benzema" to "Football",
+            "Nikola Karabatic" to "Handball",
+            "Teddy Riner" to "Judo",
+            "Laurent Blanc" to "Football",
+            "Antoine Griezmann" to "Football",
+            "Jo-Wilfried Tsonga" to "Tennis",
+            "Marie-José Pérec" to "Athlétisme",
+            "Jean Alesi" to "Formule 1",
+            "Camille Lacourt" to "Natation",
+            "Raphaël Varane" to "Football",
+            "Paul Pogba" to "Football",
+            "Marion Bartoli" to "Tennis",
+            "Lilian Thuram" to "Football",
+            "Nicolas Batum" to "Basketball",
+            "Kilian Mbappé" to "Football",
+            "Marie-Amélie Le Fur" to "Athlétisme",
+            "David Douillet" to "Judo",
+            "Florent Manaudou" to "Natation",
+            "Franck Ribéry" to "Football",
+            "Laura Flessel" to "Escrime",
+            "Guy Forget" to "Tennis",
+            "Sofiane Oumiha" to "Boxe",
+        )
+        val randomIndex = Random.nextInt(sports.size)
+        val (personne, sport) = sports[randomIndex]
+        return Pair("Quel est le sport que pratique (ou pratiquais avant) :\n$personne", sport)
+    }
+
+    fun getScience(): Pair<String, String>{
+        val questions = listOf(
+            "Quelle est la formule chimique de l'eau?" to "H2O",
+            "Quel est l'élément chimique le plus abondant dans l'univers?" to "Hydrogène",
+            "Quelle est la planète la plus proche du soleil?" to "Mercure",
+            "Quelle est la vitesse de la lumière dans le vide?" to "299,792,458 m/s",
+            "Quelle est la loi de la gravitation universelle?" to "Loi de Newton",
+            "Quel est le plus petit élément constitutif de la matière?" to "Atome",
+            "Quelle est la plus grande planète du système solaire?" to "Jupiter",
+            "Quel est le nombre de chromosomes dans une cellule humaine?" to "46",
+            "Quelle est la molécule responsable de la coloration des feuilles en vert?" to "Chlorophylle",
+            "Quel est l'organe du corps humain chargé de filtrer le sang?" to "Rein",
+            "Quelle est la réaction chimique de base dans la photosynthèse?" to "CO2 + H2O -> Glucose + O2",
+            "Quel est l'élément chimique le plus lourd naturellement produit?" to "Oganesson",
+            "Quelle est la force qui maintient les planètes en orbite autour du soleil?" to "Gravité",
+            "Quel est l'organe du corps humain qui produit l'insuline?" to "Pancréas",
+            "Quelle est la découverte qui a révolutionné la physique au début du 20e siècle?" to "Théorie de la relativité",
+            "Quelle est la distance moyenne entre la Terre et la Lune?" to "384,400 km",
+            "Quel est l'organe du corps humain qui produit la bile?" to "Foie",
+            "Quel est le processus par lequel les plantes produisent de la nourriture?" to "Photosynthèse",
+            "Quel est le nom de l'enzyme qui décompose les protéines dans l'estomac?" to "Pepsine",
+            "Quelle est la force qui maintient les atomes ensemble dans une molécule?" to "Liaison chimique",
+            "Quelle est la distance entre la Terre et le Soleil?" to "149,597,870.7 km",
+            "Quel est le composant principal de l'air que nous respirons?" to "Azote",
+            "Quel est le plus petit os du corps humain?" to "Étrier",
+            "Quel est le liquide rouge transportant l'oxygène dans le corps?" to "Sang",
+            "Quel est le nom de la théorie scientifique de l'évolution?" to "Théorie de l'évolution",
+            "Quel est le nom de la réaction chimique responsable de la combustion?" to "Oxydation",
+            "Quel est le nom de l'organe sensoriel responsable de la vision?" to "Œil",
+            "Quelle est la force qui maintient les électrons autour du noyau atomique?" to "Force électromagnétique",
+            "Quelle est la partie du cerveau responsable du langage?" to "Cortex cérébral",
+            "Quel est l'élément chimique principal constituant la croûte terrestre?" to "Oxygène",
+            "Quelle est la molécule responsable du stockage de l'énergie dans les cellules?" to "ATP",
+        )
+        val randomIndex = Random.nextInt(questions.size)
+        val (question, reponse) = questions[randomIndex]
+        return Pair("$question", reponse)
+    }
+
+
     fun getCapital(): Pair<String,String>{
         val europeanCapitals = listOf(
             "Washington D.C." to "États-Unis", "Moscou" to "Russie", "Pékin" to "Chine", "Tokyo" to "Japon", "New Delhi" to "Inde",
@@ -295,59 +441,39 @@ class GameActivity : AppCompatActivity() {
 
     fun getMot(): Pair<String,String>{
         val mots = listOf(
-            "apprendre" to "aprendre", "beauté" to "bauté", "drapeau" to "drâpeau", "essentiel" to "essantiel",
-            "fête" to "fète", "gênant" to "génant", "hôpital" to "hospital", "inviter" to "invité", "jaune" to "jone",
-            "lait" to "laît", "montagne" to "montagne", "noël" to "noel", "œuf" to "euf", "poussière" to "poussière",
-            "quatre" to "quatre", "rencontrer" to "rencontrer", "soleil" to "soleil", "théâtre" to "théatre", "uniforme" to "uniforme",
-            "vélo" to "vélo", "wagon" to "waggon", "xylophone" to "xylophone", "yacht" to "yacht", "zéro" to "zéro",
-            "aider" to "aidére", "boîte" to "boite", "chanson" to "chançon", "doux" to "dou", "école" to "ecole",
-            "famille" to "famile", "garçon" to "garsone", "heureux" to "heurteux", "île" to "ile", "jour" to "jour",
-            "koala" to "coala", "lune" to "lune", "mille" to "mile", "nouveau" to "nouvo", "oignon" to "oignon",
-            "piano" to "pianno", "question" to "quession", "renard" to "ranard", "sourire" to "sourire", "tortue" to "tortue",
-            "uniforme" to "ûniforme", "vache" to "vâche", "wagon" to "waggon", "xénophobe" to "xenophobe", "yoga" to "yoga",
-            "zèbre" to "zèbre", "ananas" to "ananas", "biscuit" to "biscuit", "cactus" to "cactus", "dragon" to "dragon",
-            "écharpe" to "echarpe", "flamme" to "flamme", "girafe" to "giraphe", "hibou" to "hîbou", "igloo" to "iglou",
-            "jardin" to "Gardin", "koala" to "quoala", "lampe" to "lampe", "manège" to "manège", "nénuphar" to "nénufar",
-            "oignon" to "oinon", "parapluie" to "parapluie", "quiche" to "quiche", "raisin" to "raisin", "sirène" to "sirene",
-            "tortue" to "tortu", "uniforme" to "uniforme", "verre" to "verre", "wagon" to "waggon", "xylophone" to "xylophone",
-            "yaourt" to "yaourtte", "zeppelin" to "zeplin", "abeille" to "abeile", "bougie" to "boûgie", "chapeau" to "châpeau",
-            "diamant" to "diament", "éléphant" to "éléfant", "fraise" to "fraize"
+            "Il pleuvait des cordes quand nous sommes arrivés à la gare." to "Imparfait",
+            "Elle chante une chanson magnifique." to "Présent",
+            "Nous irons au cinéma demain soir." to "Futur",
+            "J'avais fini mes devoirs avant de sortir." to "Plus-que-parfait",
+            "Tu aurais dû me prévenir plus tôt." to "Conditionnel",
+            "Ils ont mangé au restaurant hier soir." to "Passé composé",
+            "Il doit arriver bientôt." to "Présent",
+            "Elle se réveille toujours tôt le matin." to "Présent",
+            "Nous devrions partir avant la fin du film." to "Conditionnel",
+            "Il sera bientôt l'heure de partir." to "Futur",
+            "Elle avait toujours rêvé de visiter Paris." to "Plus-que-parfait",
+            "Je pourrais t'aider si tu me le demandais." to "Conditionnel",
+            "Nous sommes partis en vacances l'année dernière." to "Passé composé",
+            "Il a plu toute la journée." to "Passé composé",
+            "Elle ferme la porte doucement." to "Présent",
+            "Tu serais surpris de la réponse." to "Conditionnel",
+            "Nous allions souvent à la plage quand nous étions enfants." to "Imparfait",
+            "Il va faire beau demain." to "Futur proche",
+            "Elle était fatiguée après sa journée de travail." to "Imparfait",
+            "Tu as déjà vu ce film?" to "Présent",
+            "Nous avons passé de bonnes vacances." to "Passé composé",
+            "Il fera bientôt nuit." to "Futur",
+            "Elle aurait aimé partir en vacances." to "Conditionnel passé",
+            "Nous mangions quand il est arrivé." to "Imparfait",
+            "Elle prépare le dîner en ce moment." to "Présent",
+            "Je verrai ce que je peux faire." to "Futur simple",
+            "Il aurait pu gagner s'il avait essayé." to "Conditionnel passé",
+            "Elles sont allées au parc cet après-midi." to "Passé composé",
+            "Il fait toujours ses devoirs après l'école." to "Présent"
         )
         val randomIndex = Random.nextInt(mots.size)
-        val (good, mauvais) = mots[randomIndex]
-        return Pair("Corrige le mot:\n$mauvais", good)
-    }
-    fun general(): Pair<String,String>{
-        val mots = listOf(
-            "Quel célèbre empereur romain a été assassiné en 44 av. J.-C. ?" to "César",
-            "Quel événement a marqué la fin de la Seconde Guerre mondiale en Europe en 1945 ?" to "Capitulation Allemande",
-            "Quel explorateur a découvert l'Amérique en 1492 ?" to "Christophe Colomb",
-            "Quel empire a été fondé par Napoléon Bonaparte au début du XIXe siècle ?" to "Empire français",
-            "Quelle guerre a opposé les États-Unis et l'Union soviétique de manière indirecte entre 1947 et 1991 ?" to "Guerre froide",
-            "Quel est le plus long fleuve de France selon la partie coulant sur le territoire ?" to "La Loire",
-            "Quel est le plus grand lac d'eau douce en Afrique ?" to "Le lac Victoria",
-            "Quelle est la plus grande chaîne de montagnes du monde ?" to "L'Himalaya",
-            "Quel est le désert le plus grand du monde ?" to "Le Sahara",
-            "Quel est le plus grand archipel du monde ?" to "L'Indonésie",
-            "Qui a réalisé le film 'Forrest Gump' ?" to "Robert Zemeckis",
-            "Dans quel film l'acteur Tom Hanks joue-t-il un rôle de naufragé ?" to "Seul au monde",
-            "Quel film d'animation met en scène des jouets qui prennent vie lorsque les humains ne les regardent pas ?" to "Toy Story",
-            "Quelle actrice a remporté un Oscar pour son rôle dans 'La La Land' ?" to "Emma Stone",
-            "Quel film d'Alfred Hitchcock met en scène un meurtrier utilisant un couteau de cuisine comme arme ?" to "Psychose",
-            "Quel est le nom du créateur de Facebook ?" to "Mark Zuckerberg",
-            "Dans quel pays est né le site de partage de vidéos YouTube ?" to "États-Unis",
-            "Quel réseau social est principalement utilisé pour le partage de messages courts appelés 'tweets' ?" to "Twitter",
-            "Quel est le nom du co-fondateur de Twitter ?" to "Jack Dorsey",
-            "Quel est le réseau social qui permet aux utilisateurs de partager des photos et des vidéos de courtes durées ?" to "Instagram",
-            "Quel est le nom de la couche protectrice de gaz entourant la Terre ?" to "L'atmosphère",
-            "Quel est le phénomène météorologique caractérisé par des vents violents tournant en spirale ?" to "cyclone",
-            "Quel est le nom du processus par lequel l'eau s'évapore des plantes et des sols vers l'atmosphère ?" to "transpiration végétale",
-            "Quelle est la couche la plus externe de la Terre, composée de plaques mobiles ?" to "lithosphère",
-            "Quel est le nom du phénomène naturel de réchauffement de la Terre dû à l'augmentation des gaz à effet de serre ?" to "réchauffement climatique",
-        )
-        val randomIndex = Random.nextInt(mots.size)
-        val (question, reponse) = mots[randomIndex]
-        return Pair(question, reponse)
+        val (mauvais, good) = mots[randomIndex]
+        return Pair("À quel temps est cette phrase ?:\n$mauvais", good)
     }
 
 
@@ -393,6 +519,9 @@ class GameActivity : AppCompatActivity() {
         val frenchTranslation = frenchTranslations[randomIndex]
         return Pair("Traduisez: $englishWord", frenchTranslation)
     }
+    override fun onBackPressed() {
+    }
+
 
     fun String.normalize(): String {
         return Normalizer.normalize(this, Normalizer.Form.NFD)
